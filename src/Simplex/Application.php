@@ -17,4 +17,37 @@ namespace Simplex;
  * @author Саша Стаменковић <umpirsky@gmail.com>
  */
 class Application extends \Silex\Application {
+    
+    /**
+     * Application constructor.
+     * 
+     * @param array $options
+     */
+    public function __construct(array $options) {
+
+        $app = $this;
+        
+        parent::__construct();
+        
+        // Register extensions
+        $this->register(new \Silex\Provider\TwigServiceProvider(), array(
+            'twig.path' => $options['twig.path'],
+            'twig.class_path' => __DIR__ . '/../../vendor/silex/vendor/twig/lib',
+        ));
+
+        $this->register(new \Silex\Provider\UrlGeneratorServiceProvider());
+        
+        // Register error handlers
+        $this->error(
+            function (\Exception $e) use ($app) {
+                if ($e instanceof NotFoundHttpException) {
+                    return $app['twig']->render('error.html.twig', array('code' => 404));
+                }
+
+                $code = ($e instanceof HttpException) ? $e->getStatusCode() : 500;
+                return $app['twig']->render('error.html.twig', array('code' => $code));
+            }
+        );
+    }
+            
 }
