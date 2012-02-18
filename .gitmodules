@@ -1,3 +1,0 @@
-[submodule "vendor/Silex"]
-	path = vendor/Silex
-	url = https://github.com/fabpot/Silex.git
