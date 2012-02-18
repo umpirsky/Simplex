@@ -1,3 +1,6 @@
 [submodule "vendor/silex"]
 	path = vendor/silex
 	url = https://github.com/fabpot/Silex.git
+[submodule "vendor/KnpMenu"]
+	path = vendor/KnpMenu
+	url = https://github.com/KnpLabs/KnpMenu.git

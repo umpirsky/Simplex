@@ -20,8 +20,9 @@ $loader->registerNamespaces(array(
     'Symfony'   => __DIR__ . '/vendor/silex/vendor',
     'Silex'     => __DIR__ . '/vendor/silex/src',
     'Simplex'   => __DIR__ . '/src',
+    'Knp'       => __DIR__ . '/vendor/KnpMenu/src',
 ));
 $loader->registerPrefixes(array(
-    'Pimple' => __DIR__ . '/vendor/silex/vendor/pimple/lib',
+    'Pimple'    => __DIR__ . '/vendor/silex/vendor/pimple/lib',
 ));
 $loader->register();
