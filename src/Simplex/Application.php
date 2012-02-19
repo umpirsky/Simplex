@@ -49,5 +49,55 @@ class Application extends \Silex\Application {
             }
         );
     }
-            
+    
+    /**
+     * Add menus navigation.
+     *
+     * @param array $navigation
+     */
+    public function addNavigation(array $navigation) {
+        
+        $app = $this;
+        $this->register(new \Knp\Menu\Silex\KnpMenuServiceProvider());
+        $menus = array();
+        foreach ($navigation as $name => $menu) {
+            $menuId = sprintf('simplex.navigation.%s', $name);
+            $menus[$name] = $menuId;
+            $this[$menuId] = function($app) use ($navigation, $name) {
+                return $app['knp_menu.factory']->createFromArray($navigation[$name])
+                        ->setCurrentUri($app['request']->getRequestUri());
+            };
+        }
+        $this['knp_menu.menus'] = $menus;
+        
+    }
+    
+    /**
+     * Add pages from navigation.
+     *
+     * @param array $navigation
+     */
+    public function addPages(array $navigation) {
+        
+        foreach ($navigation as $menu) {
+            foreach ($menu['children'] as $item) {
+                $this->addPage($item['route'], $item['uri'], $item['route']);
+            }
+        }
+    }
+ 
+    /**
+     * Add page.
+     *
+     * @param string $route     route name
+     * @param string $pattern   matched route pattern
+     * @param string $view      view file name
+     */
+    public function addPage($route, $pattern, $view) {
+        
+        $app = $this;
+        $this->get($pattern, function () use ($app, $view, $route) {
+            return $app['twig']->render(sprintf('%s.html.twig', $view));
+        })->bind($route);
+    }
 }
