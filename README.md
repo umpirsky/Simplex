@@ -1,2 +1,2 @@
-Simplex, a simple Web Framework
+Simplex, a Simple Web Framework
 ===============================
