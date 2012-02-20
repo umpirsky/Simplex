@@ -28,7 +28,7 @@ class Application extends \Silex\Application {
         parent::__construct();
 
         foreach ($options as $k => $v) {
-            $app[$k] = $v;
+            $this[$k] = $v;
         }
     }
 }
