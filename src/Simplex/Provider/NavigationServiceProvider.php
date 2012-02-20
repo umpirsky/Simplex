@@ -20,12 +20,12 @@ use Silex\ServiceProviderInterface;
  * @author Саша Стаменковић <umpirsky@gmail.com>
  */
 class NavigationServiceProvider implements ServiceProviderInterface {
-    
+
     /**
      * @inheritdoc
      */
     public function register(Application $app) {
-        
+
         $app->register(new \Knp\Menu\Silex\KnpMenuServiceProvider());
         $menus = array();
         foreach ($app['navigation'] as $name => $menu) {
@@ -37,6 +37,5 @@ class NavigationServiceProvider implements ServiceProviderInterface {
             };
         }
         $app['knp_menu.menus'] = $menus;
-        
     }
 }
