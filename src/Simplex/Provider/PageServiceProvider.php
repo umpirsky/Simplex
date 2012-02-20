@@ -20,19 +20,16 @@ use Silex\ServiceProviderInterface;
  * @author Саша Стаменковић <umpirsky@gmail.com>
  */
 class PageServiceProvider implements ServiceProviderInterface {
-    
+
     /**
      * @inheritdoc
      */
     public function register(Application $app) {
-        
-        foreach ($app['navigation'] as $menu) {
-            foreach ($menu['children'] as $item) {
-                $route = $item['route'];
-                $app->get($item['uri'], function () use ($app, $route) {
-                    return $app['twig']->render(sprintf('%s.html.twig', $route));
-                })->bind($route);
-            }
+
+        foreach ($app['pages'] as $page) {
+            $app->get($page['uri'], function () use ($app, $page) {
+                return $app['twig']->render(sprintf('%s.html.twig', $page['view']));
+            })->bind($page['route']);
         }
     }
 }
