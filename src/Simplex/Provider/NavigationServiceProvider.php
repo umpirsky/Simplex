@@ -26,6 +26,10 @@ class NavigationServiceProvider implements ServiceProviderInterface {
      */
     public function register(Application $app) {
 
+        $app['navigation.converter'] = $app->share(function () {
+            return new \Simplex\NavigationPageConverter();
+        });
+
         $app->register(new \Knp\Menu\Silex\KnpMenuServiceProvider());
         $menus = array();
         foreach ($app['navigation.menus'] as $name => $menu) {
