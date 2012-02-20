@@ -28,7 +28,7 @@ class NavigationServiceProvider implements ServiceProviderInterface {
 
         $app->register(new \Knp\Menu\Silex\KnpMenuServiceProvider());
         $menus = array();
-        foreach ($app['navigation'] as $name => $menu) {
+        foreach ($app['navigation.menus'] as $name => $menu) {
             $menuId = sprintf('simplex.navigation.%s', $name);
             $menus[$name] = $menuId;
             $app[$menuId] = function($app) use ($menu) {

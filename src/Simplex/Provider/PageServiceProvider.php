@@ -26,7 +26,7 @@ class PageServiceProvider implements ServiceProviderInterface {
      */
     public function register(Application $app) {
 
-        foreach ($app['pages'] as $page) {
+        foreach ($app['page.pages'] as $page) {
             $app->get($page['uri'], function () use ($app, $page) {
                 return $app['twig']->render(sprintf('%s.html.twig', $page['view']));
             })->bind($page['route']);
